@@ -25,13 +25,13 @@ class Helper:
         plt.plot(makespan_history)
         plt.xlabel('Iteração')
         plt.ylabel('Makespan')
-        plt.title('Evolução do Makespan')
+        plt.title('Mudança do Makespan ao longo das iterações')
         
         plt.subplot(1, 2, 2)
         plt.plot(temperature_history)
         plt.xlabel('Iteração')
         plt.ylabel('Temperatura')
-        plt.title('Evolução da Temperatura')
+        plt.title('Mudança de Temperatura ao longo das iterações')
         
         plt.tight_layout()
         plt.show()
