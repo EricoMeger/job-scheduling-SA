@@ -35,3 +35,11 @@ class Helper:
         
         plt.tight_layout()
         plt.show()
+
+    @staticmethod
+    def write_solution(solution, filename='output.txt'):
+        with open(filename, 'w') as file:
+            for i in range(len(solution)):
+                file.write(f"Tarefas da Máquina {i + 1}: ")
+                tasks = [j + 1 for j in range(len(solution[i])) if solution[i][j] == 1]
+                file.write(", ".join(map(str, tasks)) + "\n")
