@@ -37,9 +37,22 @@ class Helper:
         plt.show()
 
     @staticmethod
-    def write_solution(solution, filename='output.txt'):
+    def write_solution(solution, num_tasks, machines, makespan, temperature, iterations, filename='output.txt'):
         with open(filename, 'w') as file:
+            file.write("Simulated Annealing Job Scheduling Results\n")
+            file.write("---------------------------------------------------------\n\n")
+
+            file.write(f"Número de Tarefas: {num_tasks}\n")
+            file.write(f"Número de Máquinas: {machines}\n")
+            file.write(f"Melhor Makespan encontrado: {makespan[-1]}\n")
+            file.write(f"Temperatura Inicial: {temperature[0]}\n")
+            file.write(f"Temperatura Final: {temperature[-1]}\n")
+            file.write(f"Iterações realizadas: {iterations}\n")
+
+            file.write("\nDistribuição das Tarefas:\n\n")
+
             for i in range(len(solution)):
-                file.write(f"Tarefas da Máquina {i + 1}: ")
+                file.write(f"Máquina {i + 1}: \n")
+                file.write("Tarefas: ")
                 tasks = [j + 1 for j in range(len(solution[i])) if solution[i][j] == 1]
-                file.write(", ".join(map(str, tasks)) + "\n")
+                file.write(", ".join(map(str, tasks)) + "\n\n")

@@ -14,5 +14,5 @@ solution, cost, makespan_history, temperature_history = simulated_annealing.opti
 print(f"Limite inferior: {Helper.get_lower_bound(tasks, machines)}. Esse limite é a solução ótima teórica, mas espera-se que o SA encontre algo igual ou muito perto disso.")
 
 print("Melhor makespan alcançado:", cost)
-Helper.write_solution(solution)
+Helper.write_solution(solution, len(tasks), machines, makespan_history, temperature_history, max_iterations)
 Helper.plot_results(makespan_history, temperature_history)
