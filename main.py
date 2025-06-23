@@ -1,6 +1,7 @@
 import random
 import math
 import copy
+import matplotlib.pyplot as plt
 
 def initialize_assignments(tasks, machines):
     assignments = []
@@ -77,6 +78,9 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
     
     temperature = initial_temp
     
+    makespan_history = []
+    temperature_history = []
+    
     for i in range(max_iterations):
         
         #Atualiza a temperatura somente a cada v iterações
@@ -99,8 +103,11 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
             if current_cost < best_cost:
                 best_solution = current_solution
                 best_cost = current_cost
+        
+        makespan_history.append(best_cost)
+        temperature_history.append(temperature)
                            
-    return best_solution, best_cost
+    return best_solution, best_cost, makespan_history, temperature_history
 
 def generate_tasks(num_tasks):
     tasks = []
@@ -115,12 +122,28 @@ def generate_tasks(num_tasks):
 def get_lower_bound(tasks, machines):
     return sum(tasks) / machines
 
-tasks = generate_tasks(100)
+tasks = generate_tasks(1000)
 machines = 2
 
 print(f"Limite inferior: {get_lower_bound(tasks, machines)}. Esse limite é a solução ótima teórica, mas espera-se que o SA encontre algo igual ou muito perto disso.")
 
-solution, cost = simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000)
+solution, cost, makespan_history, temperature_history = simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000)
 
 print("Melhor makespan alcançado:", cost)
 print("Solução encontrada: ", solution)
+
+plt.figure(figsize=(12,5))
+plt.subplot(1,2,1)
+plt.plot(makespan_history)
+plt.xlabel('Iteração')
+plt.ylabel('Makespan')
+plt.title('Evolução do Makespan')
+
+plt.subplot(1,2,2)
+plt.plot(temperature_history)
+plt.xlabel('Iteração')
+plt.ylabel('Temperatura')
+plt.title('Evolução da Temperatura')
+
+plt.tight_layout()
+plt.show()
