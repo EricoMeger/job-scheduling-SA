@@ -1,5 +1,6 @@
 import random
 import math
+import copy
 
 def initialize_assignments(tasks, machines):
     assignments = []
@@ -32,22 +33,24 @@ def find_task(selected_task, state):
     return -1
     
 def generate_neighbor(current_state):
-    selected_task = random.randint(0, len(current_state) - 1)
+    neighbor = copy.deepcopy(current_state) #Deveria ter feito em C++
     
-    machine_from = find_task(selected_task, current_state)
+    selected_task = random.randint(0, len(neighbor[0]) - 1)
+    
+    machine_from = find_task(selected_task, neighbor)
     
     if machine_from == -1:
-        return current_state
+        return neighbor
     
     machine_to = machine_from
     
     while machine_to == machine_from:
-        machine_to = random.randint(0, len(current_state) - 1)
+        machine_to = random.randint(0, len(neighbor) - 1)
     
-    current_state[machine_from][selected_task] = 0
-    current_state[machine_to][selected_task] = 1
+    neighbor[machine_from][selected_task] = 0
+    neighbor[machine_to][selected_task] = 1
     
-    return current_state
+    return neighbor
 
 def simulated_annealing(tasks, machines, initial_temp, cooling_rate, max_iterations):
     current_solution = create_initial_solution(tasks, machines)
@@ -84,7 +87,7 @@ def simulated_annealing(tasks, machines, initial_temp, cooling_rate, max_iterati
     
     return best_solution, best_cost
 
-tasks = [1, 2, 3, 4, 5]
+tasks = [20, 10, 7, 5]
 machines = 2
 
 print(simulated_annealing(tasks, machines, initial_temp=1000, cooling_rate=0.95, max_iterations=10000))
