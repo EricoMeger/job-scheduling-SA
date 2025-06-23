@@ -9,10 +9,10 @@ v = 50
 max_iterations = 10000
 
 simulated_annealing = SimulatedAnnealing(tasks, machines, initial_temp, v, max_iterations)
-solution, cost, makespan_history, temperature_history = simulated_annealing.optimize_makespan()
+solution, cost, makespan_history, temperature_history, iterations = simulated_annealing.optimize_makespan()
 
 print(f"Limite inferior: {Helper.get_lower_bound(tasks, machines)}. Esse limite é a solução ótima teórica, mas espera-se que o SA encontre algo igual ou muito perto disso.")
 
 print("Melhor makespan alcançado:", cost)
-Helper.write_solution(solution, len(tasks), machines, makespan_history, temperature_history, max_iterations)
+Helper.write_solution(solution, len(tasks), machines, makespan_history, temperature_history, iterations)
 Helper.plot_results(makespan_history, temperature_history)

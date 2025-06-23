@@ -64,6 +64,7 @@ class SimulatedAnnealing:
         makespan_history = []
         temperature_history = []
         
+        last_update = 0
         stagnation_counter = 0
         
         for i in range(self.max_iterations):
@@ -87,6 +88,7 @@ class SimulatedAnnealing:
                 if current_cost < best_cost:
                     best_solution = current_solution
                     best_cost = current_cost
+                    last_update = i
                     stagnation_counter = 0
                 else:
                     stagnation_counter += 1
@@ -98,4 +100,4 @@ class SimulatedAnnealing:
                 print(f"Parando mais cedo na iteração {i} devido à estagnação.")
                 break
                             
-        return best_solution, best_cost, makespan_history, temperature_history
+        return best_solution, best_cost, makespan_history, temperature_history, last_update
