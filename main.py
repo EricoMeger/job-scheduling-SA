@@ -34,6 +34,10 @@ def generate_neighbor(current_state):
     selected_task = random.randint(0, len(current_state) - 1)
     
     machine_from = find_task(selected_task, current_state)
+    
+    if machine_from == -1:
+        return current_state
+    
     machine_to = machine_from
     
     while machine_to == machine_from:
