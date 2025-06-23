@@ -111,14 +111,14 @@ def generate_tasks(num_tasks):
     return tasks
 
 #O limite inferior serve só pra ter uma ideia de qual é o valor mínimo possível para o makespan.
-#Não necessariamente vai ser possível atingir esse valor, já que ele pode ser quebrado, o que não seria possível no job scheduling.
-def get_inferior_limit(tasks, machines):
+#Não necessariamente vai ser possível atingir esse valor. Esse é o melhor cenário possível, e o mínimo teórico.
+def get_lower_bound(tasks, machines):
     return sum(tasks) / machines
 
 tasks = generate_tasks(100)
 machines = 2
 
-print(f"Limite inferior: {get_inferior_limit(tasks, machines)}. Esse limite não é necessariamente a solução ótima, mas espera-se que o SA encontre algo igual ou muito perto disso.")
+print(f"Limite inferior: {get_lower_bound(tasks, machines)}. Esse limite é a solução ótima teórica, mas espera-se que o SA encontre algo igual ou muito perto disso.")
 
 solution, cost = simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000)
 
