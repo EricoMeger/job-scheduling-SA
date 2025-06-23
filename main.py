@@ -69,7 +69,7 @@ def generate_neighbor(current_state):
 def phi(k, v):
     return (1 + 1 / math.sqrt(k * (v + 1) + v)) ** -1
 
-def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
+def simulated_annealing(tasks, machines, initial_temp, v, max_iterations, patience=500):
     current_solution = create_initial_solution(tasks, machines)
     current_cost = calculate_makespan(tasks, current_solution)
     
@@ -81,8 +81,9 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
     makespan_history = []
     temperature_history = []
     
+    stagnation_counter = 0
+    
     for i in range(max_iterations):
-        
         #Atualiza a temperatura somente a cada v iterações
         if i % v == 0:
             k = i // v + 1
@@ -103,9 +104,16 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
             if current_cost < best_cost:
                 best_solution = current_solution
                 best_cost = current_cost
+                stagnation_counter = 0
+            else:
+                stagnation_counter += 1
         
         makespan_history.append(best_cost)
         temperature_history.append(temperature)
+        
+        if stagnation_counter >= patience:
+            print(f"Parando mais cedo na iteração {i} devido à estagnação.")
+            break
                            
     return best_solution, best_cost, makespan_history, temperature_history
 
