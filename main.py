@@ -52,6 +52,19 @@ def generate_neighbor(current_state):
     
     return neighbor
 
+# Função de resfriamento adaptativo baseada no método VCF (Variable Cooling Factor)
+# implementada com base no paper "An Optimal Cooling Schedule Using a Simulated Annealing Based Approach"
+ 
+#fórmula:
+#     phi_k = (1 + 1 / sqrt(k*(v + 1) + v))^-1
+# onde:
+#     k = número do ciclo de resfriamento (começa em 1, cresce a cada 'v' iterações)
+#     v = número fixo de iterações por ciclo de temperatura (vc q define)
+
+# Isso cria um fator de resfriamento dinâmico (phi_k) que começa pequeno (resfriamento rápido)
+# e vai aumentando com o tempo (resfriamento mais lento), permitindo uma transição gradual
+# da exploração (busca global) para a intensificação (busca local).
+
 def phi(k, v):
     return (1 + 1 / math.sqrt(k * (v + 1) + v)) ** -1
 
@@ -66,6 +79,7 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
     
     for i in range(max_iterations):
         
+        #Atualiza a temperatura somente a cada v iterações
         if i % v == 0:
             k = i // v + 1
             temperature *= phi(k, v)
