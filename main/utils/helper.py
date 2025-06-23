@@ -45,8 +45,8 @@ class Helper:
             file.write(f"Número de Tarefas: {num_tasks}\n")
             file.write(f"Número de Máquinas: {machines}\n")
             file.write(f"Melhor Makespan encontrado: {makespan[-1]}\n")
-            file.write(f"Temperatura Inicial: {temperature[0]}\n")
-            file.write(f"Temperatura Final: {temperature[-1]}\n")
+            file.write(f"Temperatura Inicial: {temperature[0]:.2f}\n")
+            file.write(f"Temperatura Final: {temperature[-1]:.2f}\n")
             file.write(f"Iterações realizadas: {iterations}\n")
 
             file.write("\nDistribuição das Tarefas:\n\n")
