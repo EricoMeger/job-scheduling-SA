@@ -106,7 +106,16 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
     
     return best_solution, best_cost
 
-tasks = [20, 10, 7, 5]
+def generate_tasks(num_tasks):
+    tasks = []
+    
+    for _ in range(num_tasks):
+        tasks.append(random.randint(1, 99))
+        
+    return tasks
+
+tasks = generate_tasks(100)
+print(tasks)
 machines = 2
 
 print(simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000))
