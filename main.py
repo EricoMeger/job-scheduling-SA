@@ -52,7 +52,10 @@ def generate_neighbor(current_state):
     
     return neighbor
 
-def simulated_annealing(tasks, machines, initial_temp, cooling_rate, max_iterations):
+def phi(k, v):
+    return (1 + 1 / math.sqrt(k * (v + 1) + v)) ** -1
+
+def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
     current_solution = create_initial_solution(tasks, machines)
     current_cost = calculate_makespan(tasks, current_solution)
     
@@ -63,7 +66,9 @@ def simulated_annealing(tasks, machines, initial_temp, cooling_rate, max_iterati
     
     for i in range(max_iterations):
         
-        temperature *= cooling_rate
+        if i % v == 0:
+            k = i // v + 1
+            temperature *= phi(k, v)
         
         candidate_solution = generate_neighbor(current_solution)
         candidate_cost = calculate_makespan(tasks, candidate_solution)
@@ -90,4 +95,4 @@ def simulated_annealing(tasks, machines, initial_temp, cooling_rate, max_iterati
 tasks = [20, 10, 7, 5]
 machines = 2
 
-print(simulated_annealing(tasks, machines, initial_temp=1000, cooling_rate=0.95, max_iterations=10000))
+print(simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000))
