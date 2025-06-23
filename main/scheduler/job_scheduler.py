@@ -1,29 +1,36 @@
-def initialize_assignments(tasks, machines):
-    assignments = []
-    for _ in range(machines):
-        assignments.append([0] * len(tasks))
 
-    return assignments
+class JobScheduler:
+    def __init__(self, tasks, machines):
+        self.tasks = tasks
+        self.machines = machines
+        self.assignments = self.create_initial_solution()
 
-def create_initial_solution(tasks, machines):
-    assignments = initialize_assignments(tasks, machines)
-    for i in range(len(tasks)):
-        assignments[i % machines][i] = 1
-    return assignments
+    def initialize_assignments(self):
+        assignments = []
+        for _ in range(self.machines):
+            assignments.append([0] * len(self.tasks))
 
-def calculate_makespan(tasks, assignments):
-    cost = [0] * len(assignments)
+        return assignments
 
-    for i in range(len(assignments)):
-        for j in range(len(tasks)):
-            if(assignments[i][j] == 1):
-                cost[i] += tasks[j]
+    def create_initial_solution(self):
+        assignments = self.initialize_assignments()
+        for i in range(len(self.tasks)):
+            assignments[i % self.machines][i] = 1
+        return assignments
 
-    return max(cost)
+    def calculate_makespan(self, assignments):
+        cost = [0] * len(assignments)
 
-def find_task(selected_task, state):
-    for i in range(len(state)):
-        if state[i][selected_task] == 1:
-            return i
-        
-    return -1
+        for i in range(len(assignments)):
+            for j in range(len(self.tasks)):
+                if(assignments[i][j] == 1):
+                    cost[i] += self.tasks[j]
+
+        return max(cost)
+
+    def find_task(self, selected_task, state):
+        for i in range(len(state)):
+            if state[i][selected_task] == 1:
+                return i
+            
+        return -1
