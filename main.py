@@ -8,7 +8,7 @@ def initialize_assignments(tasks, machines):
 def calculate_makespan(tasks, assignments):
     cost = [0] * len(assignments)
 
-    for i in range(machines):
+    for i in range(len(assignments)):
         for j in range(len(tasks)):
             if(assignments[i][j] == 1):
                 cost[i] += tasks[j]
