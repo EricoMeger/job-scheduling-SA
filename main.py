@@ -1,4 +1,5 @@
 import random
+import math
 
 def initialize_assignments(tasks, machines):
     assignments = []
@@ -48,12 +49,42 @@ def generate_neighbor(current_state):
     
     return current_state
 
+def simulated_annealing(tasks, machines, initial_temp, cooling_rate, max_iterations):
+    current_solution = create_initial_solution(tasks, machines)
+    current_cost = calculate_makespan(tasks, current_solution)
+    
+    best_solution = current_solution
+    best_cost = current_cost
+    
+    temperature = initial_temp
+    
+    for i in range(max_iterations):
+        
+        temperature *= cooling_rate
+        
+        candidate_solution = generate_neighbor(current_solution)
+        candidate_cost = calculate_makespan(tasks, candidate_solution)
+        
+        #Para fugir de mínimos locais, o SA usa uma probabilidade para aceitar soluções piores.
+        #O random.random() gera um número aleatório entre 0 e 1, que é comparado com a probabilidade de aceitação.
+        #A probabilidade de aceitação reduz conforme a temperatura diminui.
+        #A ideia é que no começo nós exploramos o espaço de possibilidades, por isso aceitamos soluções piores mais facilmente,
+        #Mas conforme a temperatura diminui, vamos nos aproximando de uma solução ótima, e a probabilidade de aceitar soluções piores diminui.
+        if candidate_cost < best_cost or random.random() < math.exp((current_cost - candidate_cost) / temperature):
+            current_solution = candidate_solution
+            current_cost = candidate_cost
+            
+            if current_cost < best_cost:
+                best_solution = current_solution
+                best_cost = current_cost
+                
+        if i % 100 == 0:
+            print(f"Iteration {i}, Current Cost: {current_cost}, Best Cost: {best_cost}, Temperature: {temperature:.4f}")
+                
+    
+    return best_solution, best_cost
+
 tasks = [1, 2, 3, 4, 5]
 machines = 2
-machine_assignments = create_initial_solution(tasks, machines)
 
-print(machine_assignments)
-
-generate_neighbor(machine_assignments)
-
-print(machine_assignments)
+print(simulated_annealing(tasks, machines, initial_temp=1000, cooling_rate=0.95, max_iterations=10000))
