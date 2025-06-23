@@ -99,11 +99,7 @@ def simulated_annealing(tasks, machines, initial_temp, v, max_iterations):
             if current_cost < best_cost:
                 best_solution = current_solution
                 best_cost = current_cost
-                
-        if i % 100 == 0:
-            print(f"Iteration {i}, Current Cost: {current_cost}, Best Cost: {best_cost}, Temperature: {temperature:.4f}")
-                
-    
+                           
     return best_solution, best_cost
 
 def generate_tasks(num_tasks):
@@ -114,8 +110,17 @@ def generate_tasks(num_tasks):
         
     return tasks
 
+#O limite inferior serve só pra ter uma ideia de qual é o valor mínimo possível para o makespan.
+#Não necessariamente vai ser possível atingir esse valor, já que ele pode ser quebrado, o que não seria possível no job scheduling.
+def get_inferior_limit(tasks, machines):
+    return sum(tasks) / machines
+
 tasks = generate_tasks(100)
-print(tasks)
 machines = 2
 
-print(simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000))
+print(f"Limite inferior: {get_inferior_limit(tasks, machines)}. Esse limite não é necessariamente a solução ótima, mas espera-se que o SA encontre algo igual ou muito perto disso.")
+
+solution, cost = simulated_annealing(tasks, machines, initial_temp=1000, v=50, max_iterations=10000)
+
+print("Melhor makespan alcançado:", cost)
+print("Solução encontrada: ", solution)
