@@ -5,6 +5,12 @@ def initialize_assignments(tasks, machines):
 
     return assignments
 
+def create_initial_solution(tasks, machines):
+    assignments = initialize_assignments(tasks, machines)
+    for i in range(len(tasks)):
+        assignments[i % machines][i] = 1
+    return assignments
+
 def calculate_makespan(tasks, assignments):
     cost = [0] * len(assignments)
 
@@ -15,6 +21,9 @@ def calculate_makespan(tasks, assignments):
 
     return max(cost)
 
+
 tasks = [1, 2, 3, 4, 5]
 machines = 2
-machine_assignments = initialize_assignments(tasks, machines)
+machine_assignments = create_initial_solution(tasks, machines)
+
+print(machine_assignments)
