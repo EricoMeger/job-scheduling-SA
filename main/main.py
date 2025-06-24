@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 from sa.simulated_annealing import SimulatedAnnealing
 from utils.helper import Helper
 
-tasks = Helper.generate_tasks(1000) #Auto generate x tasks with random durations between 1 and 99
-machines = 2
+tasks = Helper.generate_tasks(10000) #Auto generate x tasks with random durations between 1 and 99
+machines = 2 
 initial_temp = 1000
 v = 50
 max_iterations = 10000
