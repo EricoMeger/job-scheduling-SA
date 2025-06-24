@@ -43,6 +43,30 @@ job-scheduling-SA/
 
 Esses parâmetros podem ser ajustados diretamente no arquivo `main.py`.
 
+## Resfriamento Adaptativo com VCF
+
+Este projeto utiliza o método de resfriamento adaptativo VCF (Variable Cooling Factor) para controlar a temperatura no algoritmo de Simulated Annealing. Ao contrário de um fator de resfriamento fixo, o VCF ajusta dinamicamente o ritmo de resfriamento a cada ciclo, simulando a forma como partículas perdem energia na natureza, rapidamente no início e mais lentamente ao longo do tempo.
+
+### Fórmula
+
+A temperatura é atualizada a cada ciclo k, de acordo com:
+    
+$$
+\Phi_k = \left(1 + \frac{1}{\sqrt{k(v + 1) + v}}\right)^{-1}, T_{k+1} = \Phi_k \cdot T_k
+$$
+
+Onde:
+- $\Phi_k$: fator de resfriamento variável no ciclo k
+- $v$: número de iterações por ciclo de temperatura
+- $T_k$: temperatura atual
+- $T_{k+1}$: nova temperatura após o ciclo
+
+### Intuição
+
+- No início (ciclos pequenos), $\Phi_k$ é menor → a temperatura cai mais rapidamente.
+- Conforme $k$ cresce, $\Phi_k$ se aproxima de 1 → o resfriamento desacelera.
+- Isso garante uma transição suave da exploração global (aceitação de soluções piores) para refinamento local (busca precisa).
+
 ## Resultados
 - O makespan ao longo das iterações e a evolução da temperatura são exibidos em gráficos.
 - O resultado final é salvo em `output.txt`.
