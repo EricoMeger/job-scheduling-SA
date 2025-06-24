@@ -7,8 +7,9 @@ machines = 2
 initial_temp = 1000
 v = 50
 max_iterations = 10000
+patience = 500
 
-simulated_annealing = SimulatedAnnealing(tasks, machines, initial_temp, v, max_iterations)
+simulated_annealing = SimulatedAnnealing(tasks, machines, initial_temp, v, max_iterations, patience)
 solution, cost, makespan_history, temperature_history, iterations = simulated_annealing.optimize_makespan()
 
 print(f"Limite inferior: {Helper.get_lower_bound(tasks, machines)}. Esse limite é a solução ótima teórica, mas espera-se que o SA encontre algo igual ou muito perto disso.")
