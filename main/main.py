@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 from sa.simulated_annealing import SimulatedAnnealing
 from utils.helper import Helper
 
