@@ -55,7 +55,7 @@ Esses parâmetros podem ser ajustados diretamente no arquivo `main.py`.
 - [Optimal Job Scheduling (Wikipedia)](https://en.wikipedia.org/wiki/Optimal_job_scheduling)
 
 ### Simulated Annealing
-- [A Simulated Annealing Algorithm for Job Shop Scheduling Problem (SCIRP)](https://www.scirp.org/journal/paperinformation?paperid=78834)
+- [An Optimal Cooling Schedule Using a Simulated Annealing Based Approach (SCIRP)](https://www.scirp.org/journal/paperinformation?paperid=78834)
 - [Simulated Annealing with Python (Nathan's Blog)](https://nathan.fun/posts/2020-05-14/simulated-annealing-with-python/)
 - [Optimization by Simulated Annealing (Science)](https://www.science.org/doi/10.1126/science.220.4598.671)
 
