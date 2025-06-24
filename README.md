@@ -39,6 +39,7 @@ job-scheduling-SA/
 - **initial_temp**: Temperatura inicial do SA.
 - **v**: Fator de resfriamento (número de ciclos até que haja a resfriação).
 - **max_iterations**: Número máximo de iterações.
+- **patience**: Número máximo de iterações consecutivas permitidas sem melhoria no makespan antes de encerrar a execução antecipadamente.
 
 Esses parâmetros podem ser ajustados diretamente no arquivo `main.py`.
 
