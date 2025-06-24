@@ -58,6 +58,7 @@ $$
 Onde:
 - $\Phi_k$: fator de resfriamento variável no ciclo k
 - $v$: número de iterações por ciclo de temperatura
+- $k$: número do ciclo de resfriamento (quantidade de vezes que a temperatura foi reduzida)
 - $T_k$: temperatura atual
 - $T_{k+1}$: nova temperatura após o ciclo
 
