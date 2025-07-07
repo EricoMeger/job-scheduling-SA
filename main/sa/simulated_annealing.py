@@ -81,7 +81,11 @@ class SimulatedAnnealing:
             #A probabilidade de aceitação reduz conforme a temperatura diminui.
             #A ideia é que no começo nós exploramos o espaço de possibilidades, por isso aceitamos soluções piores mais facilmente,
             #Mas conforme a temperatura diminui, vamos nos aproximando de uma solução ótima, e a probabilidade de aceitar soluções piores diminui.
-            if candidate_cost < best_cost or random.random() < math.exp((current_cost - candidate_cost) / temperature):
+
+            # P(deltaE) = exp(-deltaE/kbT).
+            #kb se refere a constante de Boltzmann q é usada para ajustar a escala da energia (custo) e temperatura
+            #no nosso caso ela é "irrelevante" e, por tanto, é definida como 1
+            if candidate_cost < best_cost or random.random() < math.exp(-(candidate_cost - current_cost) / temperature):
                 current_solution = candidate_solution
                 current_cost = candidate_cost
                 
